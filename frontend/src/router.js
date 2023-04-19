@@ -33,13 +33,17 @@ const router = new Router({
         // =============================================================================
               {
                 path: '/',
-                name: 'home',
-                component: () => import('./views/Home.vue')
+                name: 'dashboard',
+                component: () => import('./views/Dashboard.vue')
               },
               {
-                path: '/page2',
-                name: 'page-2',
-                component: () => import('./views/Page2.vue')
+                path: '/drivers',
+                name: 'drivers',
+                component: () => import('./views/Driver.vue'),
+                meta: {
+                  pageTitle: 'Drivers',
+                  rule: 'editor'
+                }
               },
             ],
         },

@@ -1,6 +1,6 @@
 /*=========================================================================================
-  File Name: sidebarItems.js
-  Description: Sidebar Items list. Add / Remove menu items from here.
+  File Name: moduleDataList.js
+  Description: Calendar Module
   ----------------------------------------------------------------------------------------
   Item Name: Vuexy - Vuejs, HTML & Laravel Admin Dashboard Template
   Author: Pixinvent
@@ -8,17 +8,17 @@
 ==========================================================================================*/
 
 
-export default [
-  {
-    url: "/",
-    name: "Dashboard",
-    slug: "dashboard",
-    icon: "ActivityIcon",
-  },
-  {
-    url: "/drivers",
-    name: "Drivers",
-    slug: "drivers",
-    icon: "TruckIcon",
-  }
-]
+import state from './moduleDataListState.js'
+import mutations from './moduleDataListMutations.js'
+import actions from './moduleDataListActions.js'
+import getters from './moduleDataListGetters.js'
+
+export default {
+  isRegistered: false,
+  namespaced: true,
+  state,
+  mutations,
+  actions,
+  getters
+}
+
