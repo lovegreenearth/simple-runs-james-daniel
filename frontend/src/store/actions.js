@@ -62,12 +62,12 @@ const actions = {
               commit('LOGIN_ERROR', response.data.message)
             }else{
               commit('LOGIN_ERROR', '')
+              const { data } = response.data
+              const token = data.token
+              delete data.token
+              localStorage.setItem("simpleRunsToken", token)
+              commit('USER_INFO', data)
             }
-            const { data } = response.data
-            const token = data.token
-            delete data.token
-            localStorage.setItem("simpleRunsToken", token)
-            commit('USER_INFO', data)
             resolve(response)
           })
           .catch((error) => { reject(error) })

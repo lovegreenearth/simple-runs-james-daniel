@@ -12,7 +12,7 @@
   <div class="h-screen flex w-full bg-img vx-row no-gutter items-center justify-center" id="page-login">
     <div class="vx-col sm:w-1/2 md:w-1/2 lg:w-3/4 xl:w-3/5 sm:m-0 m-4">
       <vx-card>
-        <div slot="no-body" class="full-page-bg-color">
+        <div slot="no-body" class="">
 
           <div class="vx-row no-gutter justify-center items-center">
 
@@ -56,12 +56,9 @@
                   <vs-button class="float-right" @click="submit()">Login</vs-button>
                 </div>
 
-                <vs-alert color="danger" title="Alert" active="true" class="mt-5" v-if="errorMessage != ''">
-                  {{ errorMessage }}
-                </vs-alert>
-                <vs-alert color="warning" title="Alert" active="true" class="mt-5" v-if="loginError != ''">
+                <!-- <vs-alert color="warning" title="Alert" active="true" class="mt-5" v-if="loginError != ''">
                   {{ loginError }}
-                </vs-alert>
+                </vs-alert> -->
               </div>
             </div>
           </div>
@@ -80,7 +77,6 @@ export default{
       email: '',
       password: '',
       checkbox_remember_me: false,
-      errorMessage: ''
     }
   },
   computed: {
@@ -88,27 +84,40 @@ export default{
       return this.$store.state.loginError
     }
   },
+  watch: {
+    loginError (val) {
+      if(val) {
+        this.$vs.notify({
+          title: 'Alert',
+          text: val,
+          color: 'danger'
+        })
+      }
+    }
+  },
   methods: {
     async submit () {
       if (!validateEmail(this.email)) {
-        this.errorMessage = 'Please enter correct email.'
+        this.$vs.notify({
+          title:'Alert',
+          text:'Please enter correct email.',
+          color:'danger'
+        })
         return
-      } else {
-        this.errorMessage = ''
       }
 
       if (!this.password) {
-        this.errorMessage = 'Please enter password.'
+        this.$vs.notify({
+          title:'Alert',
+          text:'Please enter password.',
+          color:'danger'
+        })
         return
-      } else {
-        this.errorMessage = ''
       }
 
-      if (this.errorMessage === '') {
-        const res = await this.$store.dispatch('login', { email: this.email, password: this.password }).catch(err => { console.error(err) })
-        if (res.data.statusCode < 400) {
-          this.$router.push('/')
-        }
+      const res = await this.$store.dispatch('login', { email: this.email, password: this.password }).catch(err => { console.error(err) })
+      if (res.data.statusCode < 400) {
+        this.$router.push('/')
       }
     }
   }
@@ -123,5 +132,8 @@ export default{
     .bg-google { background-color: #4285F4 }
     .bg-github { background-color: #333 }
   }
+}
+img {
+  max-width: 100%;
 }
 </style>
