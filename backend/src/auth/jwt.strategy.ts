@@ -19,7 +19,7 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
   }
 
   async validate(payload: any): Promise<any> {
-    let data = await this.usersRepository.findOne(payload.id);
+    let data = await this.usersRepository.findOneBy({id: payload.id});
     if(data) {
       return data;
     }

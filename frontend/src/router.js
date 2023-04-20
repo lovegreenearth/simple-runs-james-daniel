@@ -10,6 +10,7 @@
 
 import Vue from 'vue'
 import Router from 'vue-router'
+import { getAuthUserData } from '@/utils/auth'
 
 Vue.use(Router)
 
@@ -34,7 +35,15 @@ const router = new Router({
               {
                 path: '/',
                 name: 'dashboard',
-                component: () => import('./views/Dashboard.vue')
+                component: () => import('./views/Dashboard.vue'),
+                beforeEnter: (to, from, next) => {
+                  const userInfo = getAuthUserData()
+                  if(userInfo) {
+                    next()
+                  } else {
+                    next({ name: 'page-login' })
+                  }
+                }, 
               },
               {
                 path: '/drivers',

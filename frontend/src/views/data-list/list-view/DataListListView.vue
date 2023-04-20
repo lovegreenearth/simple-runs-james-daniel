@@ -8,9 +8,9 @@
 ========================================================================================== -->
 
 <template>
-  <div id="data-list-list-view" class="data-list-container">
+  <div id="data-list-list-view" class="data-list-container" v-if="drivers.data && drivers.data.length > 0">
 
-    <vs-table ref="table" multiple v-model="selected" pagination :max-items="itemsPerPage" search :data="products">
+    <vs-table ref="table" multiple v-model="selected" pagination :max-items="pagination.perPage" search :data="drivers.data">
 
       <div slot="header" class="flex flex-wrap-reverse items-center flex-grow justify-between">
 
@@ -26,7 +26,7 @@
         <!-- ITEMS PER PAGE -->
         <vs-dropdown vs-trigger-click class="cursor-pointer mb-4 mr-4 items-per-page-handler">
           <div class="p-4 border border-solid d-theme-border-grey-light rounded-full d-theme-dark-bg cursor-pointer flex items-center justify-between font-medium">
-            <span class="mr-2">{{ currentPage * itemsPerPage - (itemsPerPage - 1) }} - {{ products.length - currentPage * itemsPerPage > 0 ? currentPage * itemsPerPage : products.length }} of {{ queriedItems }}</span>
+            <span class="mr-2">{{ currentPage * itemsPerPage - (itemsPerPage - 1) }} - {{ drivers.data.length - currentPage * itemsPerPage > 0 ? currentPage * itemsPerPage : drivers.data.length }} of {{ queriedItems }}</span>
             <feather-icon icon="ChevronDownIcon" svgClasses="h-4 w-4" />
           </div>
           <!-- <vs-button class="btn-drop" type="line" color="primary" icon-pack="feather" icon="icon-chevron-down"></vs-button> -->
@@ -49,11 +49,15 @@
       </div>
 
       <template slot="thead">
-        <vs-th sort-key="name">Name</vs-th>
-        <vs-th sort-key="category">Category</vs-th>
-        <vs-th sort-key="popularity">Popularity</vs-th>
-        <vs-th sort-key="order_status">Order Status</vs-th>
-        <vs-th sort-key="price">Price</vs-th>
+        <vs-th sort-key="firstName">First Name</vs-th>
+        <vs-th sort-key="lastName">Last Name</vs-th>
+        <vs-th sort-key="email">Email</vs-th>
+        <vs-th sort-key="phone">Phone</vs-th>
+        <vs-th sort-key="gender">Gender</vs-th>
+        <vs-th sort-key="address">Address</vs-th>
+        <vs-th sort-key="profilePhoto">Profile Photo</vs-th>
+        <vs-th sort-key="vehicle">Vehicle</vs-th>
+        <vs-th sort-key="createdAt">Created At</vs-th>
         <vs-th>Action</vs-th>
       </template>
 
@@ -62,23 +66,39 @@
             <vs-tr :data="tr" :key="indextr" v-for="(tr, indextr) in data">
 
               <vs-td>
-                <p class="product-name font-medium truncate">{{ tr.name }}</p>
+                <p class="product-name font-medium truncate">{{ tr.firstName }}</p>
               </vs-td>
 
               <vs-td>
-                <p class="product-category">{{ tr.category | title }}</p>
+                <p class="product-name font-medium truncate">{{ tr.lastName }}</p>
               </vs-td>
 
               <vs-td>
-                <vs-progress :percent="Number(tr.popularity)" :color="getPopularityColor(Number(tr.popularity))" class="shadow-md" />
+                <p class="product-name font-medium truncate">{{ tr.email }}</p>
               </vs-td>
 
               <vs-td>
-                <vs-chip :color="getOrderStatusColor(tr.order_status)" class="product-order-status">{{ tr.order_status | title }}</vs-chip>
+                <p class="product-name font-medium truncate">{{ tr.phone }}</p>
               </vs-td>
 
               <vs-td>
-                <p class="product-price">${{ tr.price }}</p>
+                <p class="product-name font-medium truncate">{{ tr.gender }}</p>
+              </vs-td>
+
+              <vs-td>
+                <p class="product-name font-medium truncate">{{ tr.address }}</p>
+              </vs-td>
+              
+              <vs-td>
+                <p class="product-name font-medium truncate">{{ tr.profilePhoto }}</p>
+              </vs-td>
+
+              <vs-td>
+                <p class="product-name font-medium truncate">{{ tr.vehicle }}</p>
+              </vs-td>
+
+              <vs-td>
+                <p class="product-name font-medium truncate">{{ dateFormat(tr.createdAt) }}</p>
               </vs-td>
 
               <vs-td class="whitespace-no-wrap">
@@ -94,34 +114,42 @@
 </template>
 
 <script>
-import moduleDataList from '@/store/data-list/moduleDataList.js'
+import moduleDataList from '@/store/driver-list/moduleDriverList.js'
+import moment from "moment";
 
 export default {
   components: {},
   data () {
     return {
       selected: [],
-      // products: [],
+      // drivers: [],
       itemsPerPage: 4,
       isMounted: false,
 
       // Data Sidebar
       addNewDataSidebar: false,
-      sidebarData: {}
+      sidebarData: {},
+
+      pagination: {
+        curPage : 1,
+        perPage : 5,
+        sortBy : 'createdAt',
+        direction : 'desc'
+      }
     }
   },
   computed: {
     currentPage () {
-      if (this.isMounted) {
-        return this.$refs.table.currentx
-      }
-      return 0
+      return this.pagination.curPage
     },
-    products () {
-      return this.$store.state.dataList.products
+    drivers () {
+      return this.$store.state.dataList.drivers
     },
     queriedItems () {
-      return this.$refs.table ? this.$refs.table.queriedResults.length : this.products.length
+      return this.$refs.table ? this.$refs.table.queriedResults.length : this.drivers.data.length
+    },
+    dateFormat () {
+      return (date) => date ? moment(date).format('MM/DD/YYYY') : null
     }
   },
   methods: {
@@ -159,7 +187,7 @@ export default {
       this.$store.registerModule('dataList', moduleDataList)
       moduleDataList.isRegistered = true
     }
-    this.$store.dispatch('dataList/fetchDataListItems')
+    this.$store.dispatch('dataList/fetchDriverList', this.pagination)
   },
   mounted () {
     this.isMounted = true

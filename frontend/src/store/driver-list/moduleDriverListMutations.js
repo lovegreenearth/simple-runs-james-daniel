@@ -10,20 +10,20 @@
 
 export default {
   ADD_ITEM (state, item) {
-    state.products.unshift(item)
+    state.drivers.unshift(item)
   },
-  SET_PRODUCTS (state, products) {
-    state.products = products
+  SET_DRIVERS (state, drivers) {
+    state.drivers = drivers
   },
   // SET_LABELS(state, labels) {
   //   state.eventLabels = labels
   // },
   UPDATE_PRODUCT (state, product) {
-    const productIndex = state.products.findIndex((p) => p.id === product.id)
-    Object.assign(state.products[productIndex], product)
+    const productIndex = state.drivers.findIndex((p) => p.id === product.id)
+    Object.assign(state.drivers[productIndex], product)
   },
   REMOVE_ITEM (state, itemId) {
-    const ItemIndex = state.products.findIndex((p) => p.id === itemId)
-    state.products.splice(ItemIndex, 1)
+    const ItemIndex = state.drivers.findIndex((p) => p.id === itemId)
+    state.drivers.splice(ItemIndex, 1)
   }
 }

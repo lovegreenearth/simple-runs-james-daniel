@@ -6,6 +6,7 @@
   Author: Pixinvent
   Author URL: http://www.themeforest.net/user/pixinvent
 ==========================================================================================*/
+import axios from '@/axios.js'
 
 const actions = {
 
@@ -48,7 +49,30 @@ const actions = {
 
     updateUserInfo({ commit }, payload) {
       commit('UPDATE_USER_INFO', payload)
-    }
+    },
+
+    // /////////////////////////////////////////////
+    // Login API
+    // /////////////////////////////////////////////
+    login ({ commit }, item) {
+      return new Promise((resolve, reject) => {
+        axios.post('/auth/login/', {...item})
+          .then((response) => {
+            if(response.data.statusCode >= 400) {
+              commit('LOGIN_ERROR', response.data.message)
+            }else{
+              commit('LOGIN_ERROR', '')
+            }
+            const { data } = response.data
+            const token = data.token
+            delete data.token
+            localStorage.setItem("simpleRunsToken", token)
+            commit('USER_INFO', data)
+            resolve(response)
+          })
+          .catch((error) => { reject(error) })
+      })
+    },
 }
 
 export default actions

@@ -25,7 +25,7 @@ export class AuthController {
         return WriteResponse(400, false, e.message);
       }
       console.log(e)
-      return WriteResponse(400, false, 'Internal Server Error.');
+      return WriteResponse(400, false, 'Opps! Something went wrong.');
     }
   }
 
@@ -40,7 +40,7 @@ export class AuthController {
         return WriteResponse(400, false, e.message);
       }
       console.log(e)
-      return WriteResponse(400, false, 'Internal Server Error.');
+      return WriteResponse(400, false, 'Opps! Something went wrong.');
     }
   }
 }

@@ -54,7 +54,6 @@ import store from './store/store'
 import { VueHammer } from 'vue2-hammer'
 Vue.use(VueHammer)
 
-
 // PrismJS
 import 'prismjs'
 import 'prismjs/themes/prism-tomorrow.css'

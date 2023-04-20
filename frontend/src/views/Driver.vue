@@ -6,6 +6,7 @@
 
 <script>
 import DataListListView from './data-list/list-view/DataListListView.vue'
+import { getAuthUserData } from '@/utils/auth'
 
 export default {
   components: {
@@ -30,6 +31,9 @@ export default {
   },
   beforeDestroy () {
     
+  },
+  mounted() {
+    getAuthUserData()
   }
 }
 </script>

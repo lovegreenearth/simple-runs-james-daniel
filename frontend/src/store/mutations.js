@@ -115,6 +115,16 @@ const mutations = {
     // Store data in localStorage
     localStorage.setItem("userInfo", JSON.stringify(userInfo))
   },
+
+  // /////////////////////////////////////////////
+  // Login API
+  // /////////////////////////////////////////////
+  LOGIN_ERROR(state, payload) {
+    state.loginError = payload
+  },
+  USER_INFO(state, payload) {
+    state.userInfo = payload
+  },
 }
 
 export default mutations

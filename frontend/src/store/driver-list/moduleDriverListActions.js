@@ -12,7 +12,7 @@ import axios from '@/axios.js'
 export default {
   addItem ({ commit }, item) {
     return new Promise((resolve, reject) => {
-      axios.post('/api/data-list/products/', {item})
+      axios.post('/users/drivers/', {item})
         .then((response) => {
           commit('ADD_ITEM', Object.assign(item, {id: response.data.id}))
           resolve(response)
@@ -20,11 +20,11 @@ export default {
         .catch((error) => { reject(error) })
     })
   },
-  fetchDataListItems ({ commit }) {
+  fetchDriverList ({ commit }, pagination) {
     return new Promise((resolve, reject) => {
-      axios.get('/api/data-list/products')
+      axios.post('/users/driver-list', pagination)
         .then((response) => {
-          commit('SET_PRODUCTS', response.data)
+          commit('SET_DRIVERS', response.data)
           resolve(response)
         })
         .catch((error) => { reject(error) })
@@ -42,7 +42,7 @@ export default {
   // },
   updateItem ({ commit }, item) {
     return new Promise((resolve, reject) => {
-      axios.post(`/api/data-list/products/${item.id}`, {item})
+      axios.post(`/users/drivers/${item.id}`, {item})
         .then((response) => {
           commit('UPDATE_PRODUCT', response.data)
           resolve(response)
@@ -52,7 +52,7 @@ export default {
   },
   removeItem ({ commit }, itemId) {
     return new Promise((resolve, reject) => {
-      axios.delete(`/api/data-list/products/${itemId}`)
+      axios.delete(`/users/drivers/${itemId}`)
         .then((response) => {
           commit('REMOVE_ITEM', itemId)
           resolve(response)

@@ -22,7 +22,7 @@ export class AuthService {
       where: { email: data.email, isDeleted: false },
       relations: ['role'],
     });
-  
+
     if (!user) return null;
 
     let password = bcrypt.compareSync(data.password, user.password);

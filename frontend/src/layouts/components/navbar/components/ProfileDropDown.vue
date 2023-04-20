@@ -63,7 +63,7 @@ export default {
   },
   methods: {
     logout () {
-      localStorage.removeItem('userInfo')
+      localStorage.removeItem('simpleRunsToken')
 
       // This is just for demo Purpose. If user clicks on logout -> redirect
       this.$router.push('/pages/login').catch(() => {})
