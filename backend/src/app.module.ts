@@ -9,11 +9,18 @@ import { VehiclesModule } from './vehicles/vehicles.module';
 import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import * as Joi from '@hapi/joi';
+import { ServeStaticModule} from '@nestjs/serve-static';
+import { join } from 'path';
+
+console.log(join(__dirname, '..', 'client/dist'))
 
 @Module({
   controllers: [AppController],
   providers: [AppService],
   imports: [
+    ServeStaticModule.forRoot({ 
+      rootPath: join(__dirname, '..', 'client/dist'), 
+    }),
     ConfigModule.forRoot({
       validationSchema: Joi.object({})
     }),

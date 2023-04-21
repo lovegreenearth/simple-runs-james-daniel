@@ -34,15 +34,17 @@ async function bootstrap() {
   );
   app.useGlobalFilters(new QueryFailedExceptionFilter());
 
+  app.setGlobalPrefix('api'); 
+
   const config = new DocumentBuilder()
     .addBearerAuth()
-    .setTitle('Plan_Share Api')
+    .setTitle('Simplr-Runs Api')
     .setDescription(``)
     .setVersion('1.0')
     .build();
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('api', app, document, {
-    customSiteTitle: 'Plan-Share',
+    customSiteTitle: 'Simple-Runs',
     swaggerOptions: {
       tagsSorter: 'alpha',
       operationsSorter: 'alpha',
