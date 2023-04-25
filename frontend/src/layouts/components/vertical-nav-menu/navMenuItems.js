@@ -20,5 +20,29 @@ export default [
     name: "Drivers",
     slug: "drivers",
     icon: "TruckIcon",
-  }
+  },
+  {
+    url: "/customers",
+    name: "Customers",
+    slug: "customers",
+    icon: "UserIcon",
+  },
+  {
+    url: "/tracking",
+    name: "Tracking",
+    slug: "tracking",
+    icon: "MapIcon",
+  },
+  {
+    url: "/cost",
+    name: "Cost",
+    slug: "cost",
+    icon: "DollarSignIcon",
+  },
+  {
+    url: "/invoice",
+    name: "Invoice",
+    slug: "invoice",
+    icon: "InfoIcon",
+  },
 ]
