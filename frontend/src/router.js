@@ -50,7 +50,76 @@ const router = new Router({
                 name: 'drivers',
                 component: () => import('./views/Driver.vue'),
                 meta: {
+                  breadcrumb: [
+                    { title: 'Home', url: '/' },
+                    { title: 'Drivers', active: true }
+                  ],
                   pageTitle: 'Drivers',
+                  rule: 'editor'
+                }
+              },
+              {
+                path: '/customers',
+                name: 'customers',
+                component: () => import('./views/Customer.vue'),
+                meta: {
+                  breadcrumb: [
+                    { title: 'Home', url: '/' },
+                    { title: 'Customers', active: true }
+                  ],
+                  pageTitle: 'Customers',
+                  rule: 'editor'
+                }
+              },
+              {
+                path: '/costs',
+                name: 'costs',
+                component: () => import('./views/Cost.vue'),
+                meta: {
+                  breadcrumb: [
+                    { title: 'Home', url: '/' },
+                    { title: 'Costs', active: true }
+                  ],
+                  pageTitle: 'Costs',
+                  rule: 'editor'
+                }
+              },
+              {
+                path: '/vehicles',
+                name: 'vehicles',
+                component: () => import('./views/Vehicle.vue'),
+                meta: {
+                  breadcrumb: [
+                    { title: 'Home', url: '/' },
+                    { title: 'Vehicles', active: true }
+                  ],
+                  pageTitle: 'Vehicles',
+                  rule: 'editor'
+                }
+              },
+              {
+                path: '/tracking',
+                name: 'tracking',
+                component: () => import('./views/Tracking.vue'),
+                meta: {
+                  breadcrumb: [
+                    { title: 'Home', url: '/' },
+                    { title: 'Tracking', active: true }
+                  ],
+                  pageTitle: 'Tracking',
+                  rule: 'editor'
+                }
+              },
+              {
+                path: '/invoice',
+                name: 'invoice',
+                component: () => import('./views/Invoice.vue'),
+                meta: {
+                  breadcrumb: [
+                    { title: 'Home', url: '/' },
+                    { title: 'Invoice', active: true }
+                  ],
+                  pageTitle: 'Invoice',
                   rule: 'editor'
                 }
               },
@@ -90,7 +159,7 @@ router.afterEach(() => {
   // Remove initial loading
   const appLoading = document.getElementById('loading-bg')
     if (appLoading) {
-        appLoading.style.display = "none";
+      appLoading.style.display = "none";
     }
 })
 
