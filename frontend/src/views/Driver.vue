@@ -1,16 +1,16 @@
 <template>
 	<div>
-		<DataListListView />
+		<DataListThumbView  />
 	</div>
 </template>
 
 <script>
-import DataListListView from './data-list/list-view/DataListListView.vue'
+import DataListThumbView from './data-list/thumb-view/DataListThumbView.vue'
 import { getAuthUserData } from '@/utils/auth'
 
 export default {
   components: {
-    DataListListView
+    DataListThumbView
   },
   data () {
     return {
