@@ -20,11 +20,11 @@ export default {
   //       .catch((error) => { reject(error) })
   //   })
   // },
-  fetchUsers ({ commit }) {
+  fetchCustomerList ({ commit }, currentPage) {
     return new Promise((resolve, reject) => {
-      axios.get('/api/user-management/users')
+      axios.post('/users/customer-list', currentPage)
         .then((response) => {
-          commit('SET_USERS', response.data)
+          commit('SET_CUSTOMERS', response.data)
           resolve(response)
         })
         .catch((error) => { reject(error) })
@@ -32,7 +32,7 @@ export default {
   },
   fetchUser (context, userId) {
     return new Promise((resolve, reject) => {
-      axios.get(`/api/user-management/users/${userId}`)
+      axios.get(`/api/customer-list/users/${userId}`)
         .then((response) => {
           resolve(response)
         })
@@ -41,7 +41,7 @@ export default {
   },
   removeRecord ({ commit }, userId) {
     return new Promise((resolve, reject) => {
-      axios.delete(`/api/user-management/users/${userId}`)
+      axios.delete(`/api/customer-list/users/${userId}`)
         .then((response) => {
           commit('REMOVE_RECORD', userId)
           resolve(response)

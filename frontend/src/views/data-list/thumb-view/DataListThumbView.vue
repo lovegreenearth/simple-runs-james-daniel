@@ -159,7 +159,7 @@
 
 <script>
 import DataViewSidebar from '../DataViewSidebar.vue'
-import moduleDataList from '@/store/driver-list/moduleDriverList.js'
+import moduleDriverList from '@/store/driver-list/moduleDriverList.js'
 import moment from "moment";
 
 export default {
@@ -194,7 +194,7 @@ export default {
       return 0
     },
     drivers () {
-      return this.$store.state.dataList.drivers
+      return this.$store.state.driverList.drivers
     },
     queriedItems () {
       return this.$refs.table ? this.$refs.table.queriedResults.length : this.drivers.data.length
@@ -234,11 +234,11 @@ export default {
     }
   },
   created () {
-    if (!moduleDataList.isRegistered) {
-      this.$store.registerModule('dataList', moduleDataList)
-      moduleDataList.isRegistered = true
+    if (!moduleDriverList.isRegistered) {
+      this.$store.registerModule('driverList', moduleDriverList)
+      moduleDriverList.isRegistered = true
     }
-    this.$store.dispatch('dataList/fetchDriverList', this.pagination)
+    this.$store.dispatch('driverList/fetchDriverList', this.pagination)
   },
   mounted () {
     this.isMounted = true

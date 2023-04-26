@@ -72,6 +72,32 @@ const router = new Router({
                 }
               },
               {
+                path: '/costs',
+                name: 'costs',
+                component: () => import('./views/Cost.vue'),
+                meta: {
+                  breadcrumb: [
+                    { title: 'Home', url: '/' },
+                    { title: 'Costs', active: true }
+                  ],
+                  pageTitle: 'Costs',
+                  rule: 'editor'
+                }
+              },
+              {
+                path: '/vehicles',
+                name: 'vehicles',
+                component: () => import('./views/Vehicle.vue'),
+                meta: {
+                  breadcrumb: [
+                    { title: 'Home', url: '/' },
+                    { title: 'Vehicles', active: true }
+                  ],
+                  pageTitle: 'Vehicles',
+                  rule: 'editor'
+                }
+              },
+              {
                 path: '/tracking',
                 name: 'tracking',
                 component: () => import('./views/Tracking.vue'),
@@ -81,19 +107,6 @@ const router = new Router({
                     { title: 'Tracking', active: true }
                   ],
                   pageTitle: 'Tracking',
-                  rule: 'editor'
-                }
-              },
-              {
-                path: '/cost',
-                name: 'cost',
-                component: () => import('./views/Cost.vue'),
-                meta: {
-                  breadcrumb: [
-                    { title: 'Home', url: '/' },
-                    { title: 'Cost', active: true }
-                  ],
-                  pageTitle: 'Cost',
                   rule: 'editor'
                 }
               },

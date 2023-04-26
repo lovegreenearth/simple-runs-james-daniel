@@ -180,7 +180,7 @@
 </template>
 
 <script>
-import moduleUserManagement from '@/store/user-management/moduleUserManagement.js'
+import moduleCustomerList from '@/store/customer-list/moduleCustomerList.js'
 
 export default {
   data () {
@@ -229,9 +229,9 @@ export default {
   },
   created () {
     // Register Module UserManagement Module
-    if (!moduleUserManagement.isRegistered) {
-      this.$store.registerModule('userManagement', moduleUserManagement)
-      moduleUserManagement.isRegistered = true
+    if (!moduleCustomerList.isRegistered) {
+      this.$store.registerModule('userManagement', moduleCustomerList)
+      moduleCustomerList.isRegistered = true
     }
 
     const userId = this.$route.params.userId

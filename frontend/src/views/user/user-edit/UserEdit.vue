@@ -51,7 +51,7 @@ import UserEditTabInformation from './UserEditTabInformation.vue'
 import UserEditTabSocial      from './UserEditTabSocial.vue'
 
 // Store Module
-import moduleUserManagement from '@/store/user-management/moduleUserManagement.js'
+import moduleCustomerList from '@/store/customer-list/moduleCustomerList.js'
 
 export default {
   components: {
@@ -92,9 +92,9 @@ export default {
   },
   created () {
     // Register Module UserManagement Module
-    if (!moduleUserManagement.isRegistered) {
-      this.$store.registerModule('userManagement', moduleUserManagement)
-      moduleUserManagement.isRegistered = true
+    if (!moduleCustomerList.isRegistered) {
+      this.$store.registerModule('userManagement', moduleCustomerList)
+      moduleCustomerList.isRegistered = true
     }
     this.fetch_user_data(this.$route.params.userId)
   }

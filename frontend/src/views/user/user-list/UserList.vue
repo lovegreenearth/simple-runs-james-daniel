@@ -40,7 +40,7 @@
         <div class="flex-grow">
           <vs-dropdown vs-trigger-click class="cursor-pointer">
             <div class="p-4 border border-solid d-theme-border-grey-light rounded-full d-theme-dark-bg cursor-pointer flex items-center justify-between font-medium">
-              <span class="mr-2">{{ currentPage * paginationPageSize - (paginationPageSize - 1) }} - {{ usersData.length - currentPage * paginationPageSize > 0 ? currentPage * paginationPageSize : usersData.length }} of {{ usersData.length }}</span>
+              <span class="mr-2">{{ currentPage * paginationPageSize - (paginationPageSize - 1) }} - {{ customers.length - currentPage * paginationPageSize > 0 ? currentPage * paginationPageSize : customers.length }} of {{ customers.length }}</span>
               <feather-icon icon="ChevronDownIcon" svgClasses="h-4 w-4" />
             </div>
             <!-- <vs-button class="btn-drop" type="line" color="primary" icon-pack="feather" icon="icon-chevron-down"></vs-button> -->
@@ -67,7 +67,7 @@
           <!-- <vs-button class="mb-4 md:mb-0" @click="gridApi.exportDataAsCsv()">Export as CSV</vs-button> -->
 
           <!-- ACTION - DROPDOWN -->
-          <vs-dropdown vs-trigger-click class="cursor-pointer">
+          <!-- <vs-dropdown vs-trigger-click class="cursor-pointer">
 
             <div class="p-3 shadow-drop rounded-lg d-theme-dark-light-bg cursor-pointer flex items-end justify-center text-lg font-medium w-32">
               <span class="mr-2 leading-none">Actions</span>
@@ -105,7 +105,7 @@
               </vs-dropdown-item>
 
             </vs-dropdown-menu>
-          </vs-dropdown>
+          </vs-dropdown> -->
       </div>
 
 
@@ -117,7 +117,7 @@
         class="ag-theme-material w-100 my-4 ag-grid-table"
         :columnDefs="columnDefs"
         :defaultColDef="defaultColDef"
-        :rowData="usersData"
+        :rowData="customers"
         rowSelection="multiple"
         colResizeDefault="shift"
         :animateRows="true"
@@ -144,7 +144,7 @@ import '@/assets/scss/vuexy/extraComponents/agGridStyleOverride.scss'
 import vSelect from 'vue-select'
 
 // Store Module
-import moduleUserManagement from '@/store/user-management/moduleUserManagement.js'
+import moduleCustomerList from '@/store/customer-list/moduleCustomerList.js'
 
 // Cell Renderer
 import CellRendererLink from './cell-renderer/CellRendererLink.vue'
@@ -304,8 +304,8 @@ export default {
     }
   },
   computed: {
-    usersData () {
-      return this.$store.state.userManagement.users
+    customers () {
+      return this.$store.state.customerList.customers
     },
     paginationPageSize () {
       if (this.gridApi) return this.gridApi.paginationGetPageSize()
@@ -365,11 +365,11 @@ export default {
     }
   },
   created () {
-    if (!moduleUserManagement.isRegistered) {
-      this.$store.registerModule('userManagement', moduleUserManagement)
-      moduleUserManagement.isRegistered = true
+    if (!moduleCustomerList.isRegistered) {
+      this.$store.registerModule('customerList', moduleCustomerList)
+      moduleCustomerList.isRegistered = true
     }
-    this.$store.dispatch('userManagement/fetchUsers').catch(err => { console.error(err) })
+    this.$store.dispatch('customerList/fetchCustomerList', this.currentPage).catch(err => { console.error(err) })
   }
 }
 
